@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Counter App</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <h1>Counter App</h1>
+    <button id="incrementButton">Increment Counter</button>
+    <p>Current Count: <span id="counterValue">0</span></p>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2oCdFm9GoQ-cWu2iRTfiQtrhI0knZgcU",
+            authDomain: "wetgenie-3b39f.firebaseapp.com",
+            projectId: "wetgenie-3b39f",
+            storageBucket: "wetgenie-3b39f.appspot.com",
+            messagingSenderId: "972891305048",
+            appId: "1:972891305048:web:066a70010294d34a9b462d",
+            measurementId: "G-CNQYR5FFH5"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const incrementButton = document.getElementById('incrementButton');
+        const counterValue = document.getElementById('counterValue');
+
+        // Real-time listener for counter updates
+        db.collection('counters').doc('clickCounter').onSnapshot((doc) => {
+            if (doc.exists) {
+                counterValue.textContent = doc.data().count;
+            }
+        });
+
+        incrementButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/incrementCounter', { method: 'POST' });
+                if (!response.ok) throw new Error('Failed to increment counter');
+                console.log('Counter incremented successfully');
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+  </body>
+</html>
