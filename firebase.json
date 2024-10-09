@@ -18,10 +18,6 @@
       {
         "source": "/incrementCounter",
         "function": "incrementCounter"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
       }
     ]
   }
