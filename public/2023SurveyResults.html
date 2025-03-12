@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>WetGenie</title>
+
+    <link rel="icon" type="image/x-icon" href="./droplet.svg" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <style>
+      html {
+        position: relative;
+
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+
+        /* margin-bottom: 60px; Footer height */
+
+        background-color: rgb(212, 236, 244) !important;
+
+        text-align: center;
+      }
+
+      /* Navigation Styles */
+
+      .navbar,
+      .nav-link {
+        background-color: #fff !important;
+      }
+
+      /* App Download Section */
+
+      .app-download-section {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 20px;
+      }
+
+      .buttons-column {
+        flex: 1;
+
+        display: flex;
+
+        justify-content: center;
+      }
+
+      /* Increase overall size */
+
+      .app-store-button,
+      .webapp-button {
+        height: 80px; /* Adjust height to make them larger */
+
+        min-width: 240px; /* Ensure both have the same minimum width */
+      }
+
+      /* Additional margin for the text button */
+
+      .webapp-button {
+        margin: 0 15px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+      }
+
+      a.btn.webapp-button {
+        font-size: 1.5rem !important;
+      }
+
+      /* Feature Icons */
+
+      .feature-icon {
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 10rem;
+
+        height: 4rem;
+
+        margin-bottom: 1rem;
+
+        font-size: 2rem;
+
+        color: #fff;
+
+        border-radius: 0.75rem;
+      }
+
+      .negStress {
+        font-weight: bold;
+      }
+
+      svg.bi path {
+        stroke: none;
+      }
+
+      .btn.btn-primary.elevated {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+        transition: box-shadow 0.3s ease;
+      }
+
+      .btn.btn-primary.elevated:hover {
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .text-muted {
+        color: white !important;
+
+        font-size: 3;
+      }
+
+      .spacer {
+        margin-bottom: 5rem; /* or any value */
+      }
+
+      .footer {
+        background-color: rgb(255, 255, 255) !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            class="bi bi-droplet"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"
+            />
+
+            <path
+              fill-rule="evenodd"
+              d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z"
+            />
+          </svg>
+
+          WetGenie
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html"
+                >Home</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./pricing_page.html">Pricing</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./2023SurveyResults.html">Survey</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./connect.html">Connect</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-10 col-md-8 mx-auto">
+            <h1 class="fw-light">2023 survey results</h1>
+
+            <p class="lead text-body-secondary pt-3">
+              In 2023, we piloted our very first WetGenie survey and got
+              responses from many PhD students in biomedical sciences and other
+              related experimental disciplines. The students came from schools
+              such as UPenn, Columbia, NCSU, and UCSD. <br />📣 Shout out to all
+              our respondents 📣 !<br />
+
+              <br />
+
+              Here are the highlights.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-lg-2 g-3">
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q2.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    Roughly 50% of experiments are done to fine-tune or repeat a
+                    previous experiment.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q3.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    Protocol printout is the most common way to refer to a
+                    protocol during an experiment.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q5.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    Changing a protocol mid-way through an experiment is common.
+                    Almost 20% of respondents modify a protocol more than half
+                    of the time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q6.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    During an experiment, note taking on a physical notebook or
+                    on the protocol printout is the norm and likely on a piece
+                    of tissue.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q7.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    Things often don't go as planned. For those who experience
+                    post-experiment anxiety, we understand!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q9.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    After experiments, documentations live on both physical
+                    notebooks and the computer. Data integration (from physical
+                    to digital format) is almost always required.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col d-flex">
+              <div class="card shadow-sm h-100">
+                <svg
+                  class="bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                >
+                  <title>Placeholder</title>
+
+                  <rect width="100%" height="100%" fill="white"></rect>
+
+                  <image
+                    xlink:href="./assets/images/23-Q10.png"
+                    width="100%"
+                    height="100%"
+                  />
+                </svg>
+
+                <div class="card-body d-flex flex-column">
+                  <p class="card-text">
+                    How many times do we think to ourselves: "Oopsy, I forgot
+                    how I did that step..." You are not alone. Kudos to the ones
+                    that always remember.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="spacer"></div>
+
+    <!-- Footer -->
+
+    <div class="footer">
+      <footer class="container py-3">
+        <div class="row align-items-center">
+          <!-- Left: Copyright -->
+
+          <div class="col-md-4">
+            <p class="mb-0 text-body-secondary">© 2025 The Ensynble, Inc.</p>
+          </div>
+
+          <!-- Center: Logo -->
+
+          <div class="col-md-4 d-flex justify-content-center">
+            <a href="/" class="text-decoration-none">
+              <img
+                src="./assets/images/230729_logo for survey_text only_gray.png"
+                width="40%"
+                alt="Logo"
+              />
+            </a>
+          </div>
+
+          <!-- Right: Navigation in 3 Columns -->
+
+          <div class="col-md-4">
+            <div class="row justify-content-center">
+              <!-- Column 1 -->
+
+              <div class="col-auto">
+                <ul class="nav flex-column text-start">
+                  <li class="nav-item">
+                    <a
+                      href="./index.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Home</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      href="./pricing_page.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Pricing</a
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 2 -->
+
+              <div class="col-auto">
+                <ul class="nav flex-column text-start">
+                  <li class="nav-item">
+                    <a
+                      href="./2023SurveyResults.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Survey</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      href="./connect.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Connect</a
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 3 -->
+
+              <div class="col-auto">
+                <ul class="nav flex-column text-start">
+                  <li class="nav-item">
+                    <a
+                      href="./privacy_policy.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Privacy</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      href="./terms_service_agreement.html"
+                      class="nav-link px-0 text-body-secondary"
+                      >Terms</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
