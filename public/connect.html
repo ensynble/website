@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WetGenie</title>
+    <link rel="icon" type="image/x-icon" href="./droplet.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <style>
+      html {
+        position: relative;
+        min-height: 100%;
+      }
+      body {
+        margin: 0;
+        /* margin-bottom: 60px; Footer height */
+        background-color: rgb(212, 236, 244) !important;
+        text-align: center;
+      }
+      
+      /* Navigation Styles */
+      .navbar,
+      .nav-link {
+        background-color: #fff !important;
+      }
+      /* App Download Section */
+      .app-download-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .buttons-column {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Increase overall size */
+      .app-store-button,
+      .webapp-button {
+        height: 80px; /* Adjust height to make them larger */
+        min-width: 240px; /* Ensure both have the same minimum width */
+      }
+
+      /* Additional margin for the text button */
+      .webapp-button {
+        margin: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      a.btn.webapp-button {
+        font-size: 1.5rem !important;
+      }
+
+      /* Feature Icons */
+      .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 10rem;
+        height: 4rem;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #fff;
+        border-radius: 0.75rem;
+      }
+
+      .negStress {
+        font-weight: bold;
+      }
+
+      svg.bi path {
+        stroke: none;
+      }
+
+      .btn.btn-primary.elevated {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+      }
+
+      .btn.btn-primary.elevated:hover {
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .text-muted {
+        color: white !important;
+        font-size: 3;
+      }
+
+      .spacer {
+        margin-bottom: 5rem; /* or any value */
+      }
+
+      .footer {
+        background-color: rgb(255, 255, 255) !important;
+      }
+     
+      .text-align li {
+        text-align: left;
+        padding-left: 20px;
+        text-indent: -0.8em;
+        padding-left: 1.2em;
+        margin-bottom: 0.5em;
+      }
+
+      .text-muted {
+        color: #a1abb3 !important;
+        font-size: 3;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            class="bi bi-droplet"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z"
+            />
+          </svg>
+          WetGenie
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pricing_page.html">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./2023SurveyResults.html">Survey</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./connect.html">Connect</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container px-4 pt-8 my-5 text-left">
+      <!-- <header class="pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-body-emphasis text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg>
+          <span class="fs-4">Jumbotron example</span>
+        </a>
+      </header> -->
+  
+      <div class="py-5 px-4 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid ">
+          <h1 class="display-5 fw-bold">Hello from the team!</h1>
+          <p class="col-md-10 fs-4"> We are a team of two who both have spent years working in labs and also love building software. Since experiments are intrinsically hard, we believe that researchers shouldn’t experience any friction from the most frequent and basic tasks.  <br> 
+               </p>
+          <small class="col-md-8">P.S. If you are wondering, Ensynble is the name of our company and WetGenie is our product name.</small>
+          <!-- <button class="btn btn-primary btn-lg" type="button">Example button</button> -->
+        </div>
+      </div>
+  
+      <div class="row align-items-md-stretch">
+
+        <div class="col-md-6 pb-4">
+          <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Directly connect with us</h2>
+            <p>Email us at info@ensynble.com </p>
+            <a class="btn btn-outline-light" href="mailto:info@ensynble.com" role="button">Email us</a>
+          <p class="mt-5"> OR let's chat live! You can schedule a call with us if you want to learn more about anything WetGenie related.  </p>
+            <a class="btn btn-outline-light" href="https://calendly.com/feilunwu/quick-chat" role="button">Chat with us</a>
+          </div>
+        </div>
+
+        <div class="col-md-6 pb-4">
+          <div class="h-100 p-5 bg-body-tertiary border rounded-3 ">
+            <h2>Social media</h2>
+            <p> Follow us on social media for latest updates of WetGenie </p>
+            <p>
+              <svg  viewBox="0 0 24 24" aria-hidden="true" width=30px class="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-lrsllp r-18jsvk2 r-16y2uox r-8kz0gk">
+                  <!-- <g> -->
+                      <a xlink:href="https://twitter.com/ensynble" target=”_blank”>
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                  </path>
+              <!-- </g> --></a>
+              
+          </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="30px" height="30px" focusable="false">
+                  <a xlink:href="https://www.linkedin.com/company/96313642" target=”_blank”>
+                  <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+                  </svg>
+              </a>
+               </p>
+            <!-- <button class="btn btn-outline-secondary" type="button">Example button</button> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+   <!-- Footer -->
+  <div class="footer">
+    <footer class="container py-3">
+      <div class="row align-items-center">
+        <!-- Left: Copyright -->
+        <div class="col-md-4">
+          <p class="mb-0 text-body-secondary">© 2025 The Ensynble, Inc.</p>
+        </div>
+
+        <!-- Center: Logo -->
+        <div class="col-md-4 d-flex justify-content-center">
+          <a href="/" class="text-decoration-none">
+            <img
+              src="./assets/images/230729_logo for survey_text only_gray.png"
+              width="40%"
+              alt="Logo"
+            />
+          </a>
+        </div>
+
+        <!-- Right: Navigation in 3 Columns -->
+        <div class="col-md-4">
+          <div class="row justify-content-center">
+            <!-- Column 1 -->
+            <div class="col-auto">
+              <ul class="nav flex-column text-start">
+                <li class="nav-item">
+                  <a
+                    href="./index.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="./pricing_page.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Pricing</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="col-auto">
+              <ul class="nav flex-column text-start">
+                <li class="nav-item">
+                  <a
+                    href="./2023SurveyResults.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Survey</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="./connect.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Connect</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="col-auto">
+              <ul class="nav flex-column text-start">
+                <li class="nav-item">
+                  <a
+                    href="./privacy_policy.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Privacy</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="./terms_service_agreement.html"
+                    class="nav-link px-0 text-body-secondary"
+                    >Terms</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+ 
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
