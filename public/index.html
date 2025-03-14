@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-43HM3PMLMW"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-43HM3PMLMW");
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WetGenie</title>
@@ -164,6 +179,49 @@
 
     <!-- Main Content -->
     <div class="container px-4 pt-8 my-5 text-center">
+      <h1>Counter App</h1>
+      <button id="incrementButton">Increment Counter</button>
+      <p>Current Count: <span id="counterValue">0</span></p>
+
+      <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyC2oCdFm9GoQ-cWu2iRTfiQtrhI0knZgcU",
+          authDomain: "wetgenie-3b39f.firebaseapp.com",
+          projectId: "wetgenie-3b39f",
+          storageBucket: "wetgenie-3b39f.appspot.com",
+          messagingSenderId: "972891305048",
+          appId: "1:972891305048:web:066a70010294d34a9b462d",
+          measurementId: "G-CNQYR5FFH5",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const incrementButton = document.getElementById("incrementButton");
+        const counterValue = document.getElementById("counterValue");
+
+        // Real-time listener for counter updates
+        db.collection("counters")
+          .doc("clickCounter")
+          .onSnapshot((doc) => {
+            if (doc.exists) {
+              counterValue.textContent = doc.data().count;
+            }
+          });
+
+        incrementButton.addEventListener("click", async () => {
+          try {
+            const response = await fetch("/incrementCounter", {
+              method: "POST",
+            });
+            if (!response.ok) throw new Error("Failed to increment counter");
+            console.log("Counter incremented successfully");
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+      </script>
+
       <h1 class="display-4 fw-bold">Experiments reimagined</h1>
       <div class="col-lg-10 mx-auto">
         <p class="display-6">
