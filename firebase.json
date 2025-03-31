@@ -9,16 +9,18 @@
   },
   "hosting": {
     "public": "public",
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/incrementCounter",
-        "function": "incrementCounter"
-      }
     ]
-  }
+  },
+
+  "rewrites": [
+    {
+      "source": "/webapp/**",
+      "destination": "/webapp/index.html"
+    }
+  ]
 }

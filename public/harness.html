@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-43HM3PMLMW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-43HM3PMLMW');
+</script>
+<title>Harness</title>
+
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="icon" type="image/png" href="/public/webapp/favicon.ico" />
+    
+        <title>Pricing</title>
+    
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WetGenie</title>
+        <link rel="icon" type="image/x-icon" href="./droplet.svg" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+          crossorigin="anonymous"
+        />
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+        <!-- Bootstrap core CSS -->
+        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+        <style>
+          html {
+            position: relative;
+            min-height: 100%;
+          }
+          body {
+            height: 100%;
+            margin: 0;
+            /* margin-bottom: 60px; Footer height */
+            background-color: rgb(212, 236, 244) !important;
+            text-align: center;
+          }
+          body {
+            display: flex;
+            flex-direction: column;
+          }
+          .content {
+            flex: 1;
+          }
+          /* Navigation Styles */
+          .navbar,
+          .nav-link {
+            background-color: #fff !important;
+          }
+          /* App Download Section */
+          .app-download-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+          }
+    
+          .buttons-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+          }
+    
+          /* Increase overall size */
+          .app-store-button,
+          .webapp-button {
+            height: 80px; /* Adjust height to make them larger */
+            min-width: 240px; /* Ensure both have the same minimum width */
+          }
+    
+          /* Additional margin for the text button */
+          .webapp-button {
+            margin: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+    
+          a.btn.webapp-button {
+            font-size: 1.5rem !important;
+          }
+    
+          .custom-disabled {
+            background-color: grey;
+            color: white;
+            border-color: grey;
+            pointer-events: none; /* ensure it's not clickable */
+          }
+    
+          /* Remove hover effects */
+          .custom-disabled:hover {
+            background-color: grey;
+            border-color: grey;
+            opacity: 1;
+          }
+    
+          /* Feature Icons */
+          .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 10rem;
+            height: 4rem;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: #fff;
+            border-radius: 0.75rem;
+          }
+    
+          .negStress {
+            font-weight: bold;
+          }
+    
+          svg.bi path {
+            stroke: none;
+          }
+    
+          .btn.btn-primary.elevated {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+          }
+    
+          .btn.btn-primary.elevated:hover {
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+          }
+    
+          .text-muted {
+            color: #a1abb3 !important;
+            font-size: 3;
+          }
+    
+          .spacer {
+            margin-bottom: 10rem; /* or any value */
+          }
+    
+          .footer {
+            background-color: rgb(255, 255, 255) !important;
+          }
+    
+          .text-align li {
+            text-align: left;
+            padding-left: 20px;
+          }
+    
+          .text-align li {
+            text-indent: -0.8em;
+            padding-left: 1.2em;
+            margin-bottom: 0.5em;
+          }
+
+          .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(100%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+        /* Ensure modal image takes full width */
+        .modal-body img {
+            width: 100%;
+        }
+
+        </style>
+      </head>
+
+<body>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html">
+            <img
+            src="./web-app-manifest-192x192.png"
+            alt="Icon description"
+            width="30"
+            height="30"
+            class="bi bi-droplet"
+          />
+            WetGenie
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="./index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./pricing.html">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./2023SurveyResults.html">Survey</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./connect.html">Connect</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container my-5">
+        <div class="row">
+          <!-- Left Column: Carousel -->
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              id="carouselExampleIndicators"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-indicators">
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="3"
+                  aria-label="Slide 4"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="4"
+                  aria-label="Slide 5"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="5"
+                  aria-label="Slide 6"
+                ></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <!-- Wrap image in anchor to trigger modal -->
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                    data-bs-image="./assets/harness_1.png"
+                  >
+                    <img
+                      src="./assets/harness_1.png"
+                      class="d-block w-100"
+                      alt="Harness 1"
+                    />
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                    data-bs-image="./assets/harness_2.jpg"
+                  >
+                    <img
+                      src="./assets/harness_2.jpg"
+                      class="d-block w-100"
+                      alt="Harness 2"
+                    />
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                    data-bs-image="./assets/harness_3.jpg"
+                  >
+                    <img
+                      src="./assets/harness_3.jpg"
+                      class="d-block w-100"
+                      alt="Harness 3"
+                    />
+                  </a>
+                </div>
+                <div class="carousel-item">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                    data-bs-image="./assets/harness_4.webp"
+                  >
+                    <img
+                      src="./assets/harness_4.webp"
+                      class="d-block w-100"
+                      alt="Harness 4"
+                    />
+                  </a>
+                </div>
+                <div class="carousel-item">
+                    <a
+                      href="#"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imageModal"
+                      data-bs-image="./assets/harness_5.webp"
+                    >
+                      <img
+                        src="./assets/harness_5.webp"
+                        class="d-block w-100"
+                        alt="Harness 5"
+                      />
+                    </a>
+                  </div>
+
+                  <div class="carousel-item">
+                    <a
+                      href="#"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imageModal"
+                      data-bs-image="./assets/harness_6.webp"
+                    >
+                      <img
+                        src="./assets/harness_6.webp"
+                        class="d-block w-100"
+                        alt="Harness 6"
+                      />
+                    </a>
+                  </div>
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <!-- Right Column: Product Details -->
+          <div class="col-md-6">
+            <div class="product-details">
+              <h1 class="display-5">Neck Harness</h1>
+              <p class="price fs-3">$39.99</p>
+              <p class="lead">We hand-picked this neck harness for WetGenie.</p>
+              <p class="description text-start">
+                After testing several phone harnesses, we chose this one for its
+                exceptional comfort and ease of use. Perfect for extended use, it
+                features a secure lock mechanism that makes it simple to mount
+                and remove. The highly flexible and stable silicone neck ring helps
+                you find the perfect position for your phone while using WetGenie.
+              </p>
+              <p class="description">We currently only ship within the USA and typically ship in 1-3 days.</p>
+              <p class="external link">
+                For full details, please visit the website:
+                <a
+                  href="https://www.telesinstore.com/collections/all-products/products/telesin-magnetic-neck-mount-for-phones"
+                  target="_blank"
+                  >link</a
+                >
+              </p>
+              <!-- Product Options -->
+              <div class="product-options">
+                <div class="mb-3">
+                  <label for="color" class="form-label">Color</label>
+                  <select id="color" name="color" class="form-select">
+                    <option value="black">Black</option>
+                    <option value="blue">Blue</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="size" class="form-label">Size</label>
+                  <select id="size" name="size" class="form-select">
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                  </select>
+                </div>
+              </div>
+              <p>You may only purchase a harness after logging in to the webapp. </p>
+              <a
+                href="./webapp/"
+                class="btn btn-lg btn-primary buy-button"
+                id="pay-btn"
+                >Purchase</a
+              >
+              <script>
+                const payButton = document.getElementById('pay-btn');
+                payButton.addEventListener('click', function () {
+                  console.log('User clicked the pay button');
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Modal for Expanded Image -->
+      <div
+        class="modal fade"
+        id="imageModal"
+        tabindex="-1"
+        aria-labelledby="imageModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="" alt="Expanded view" id="modalImage" />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="spacer"></div>
+
+<!-- Footer -->
+<div class="footer">
+  <footer class="container py-3">
+    <div class="row align-items-center">
+      <!-- Left: Copyright -->
+      <div class="col-md-4">
+        <p class="mb-0 text-body-secondary">© 2025 The Ensynble, Inc.</p>
+      </div>
+
+      <!-- Center: Logo -->
+      <div class="col-md-4 d-flex justify-content-center">
+        <a href="./index.html" class="text-decoration-none">
+          <img
+            src="./assets/ensynble_logo.png"
+            width="40%"
+            alt="Logo"
+          />
+        </a>
+      </div>
+
+      <!-- Right: Navigation in 3 Columns -->
+      <div class="col-md-4">
+        <div class="row justify-content-center">
+          <!-- Column 1 -->
+          <div class="col-auto">
+            <ul class="nav flex-column text-start">
+              <li class="nav-item">
+                <a
+                  href="./index.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="./pricing.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Pricing</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- Column 2 -->
+          <div class="col-auto">
+            <ul class="nav flex-column text-start">
+              <li class="nav-item">
+                <a
+                  href="./2023SurveyResults.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Survey</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="./connect.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Connect</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- Column 3 -->
+          <div class="col-auto">
+            <ul class="nav flex-column text-start">
+              <li class="nav-item">
+                <a
+                  href="./privacy.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Privacy</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href="./terms.html"
+                  class="nav-link px-0 text-body-secondary"
+                  >Terms</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+
+ <!-- Bootstrap JS Bundle -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+   // When the modal is about to be shown, set the modal image src
+   const imageModal = document.getElementById('imageModal');
+   imageModal.addEventListener('show.bs.modal', event => {
+     const triggerLink = event.relatedTarget;
+     const imageSrc = triggerLink.getAttribute('data-bs-image');
+     document.getElementById('modalImage').src = imageSrc;
+   });
+ </script>
+
+</body>
+</html>

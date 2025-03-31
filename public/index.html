@@ -6,6 +6,7 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-43HM3PMLMW"
     ></script>
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -19,7 +20,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WetGenie</title>
-    <link rel="icon" type="image/x-icon" href="./droplet.svg" />
+    <link rel="apple-touch-icon" href="./favicon.ico" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -28,6 +29,9 @@
     />
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+    <link rel="icon" type="image/png" href="/public/webapp/favicon.ico" />
+
     <style>
       html {
         position: relative;
@@ -126,23 +130,13 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="./index.html">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
+          <img
+            src="./web-app-manifest-192x192.png"
+            alt="Icon description"
             width="30"
             height="30"
-            fill="currentColor"
             class="bi bi-droplet"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M7.21.8C7.69.295 8 0 8 0q.164.544.371 1.038c.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8m.413 1.021A31 31 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87z"
-            />
-          </svg>
+          />
           WetGenie
         </a>
         <button
@@ -164,7 +158,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./pricing_page.html">Pricing</a>
+              <a class="nav-link" href="./pricing.html">Pricing</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./2023SurveyResults.html">Survey</a>
@@ -179,49 +173,6 @@
 
     <!-- Main Content -->
     <div class="container px-4 pt-8 my-5 text-center">
-      <h1>Counter App</h1>
-      <button id="incrementButton">Increment Counter</button>
-      <p>Current Count: <span id="counterValue">0</span></p>
-
-      <script>
-        const firebaseConfig = {
-          apiKey: "AIzaSyC2oCdFm9GoQ-cWu2iRTfiQtrhI0knZgcU",
-          authDomain: "wetgenie-3b39f.firebaseapp.com",
-          projectId: "wetgenie-3b39f",
-          storageBucket: "wetgenie-3b39f.appspot.com",
-          messagingSenderId: "972891305048",
-          appId: "1:972891305048:web:066a70010294d34a9b462d",
-          measurementId: "G-CNQYR5FFH5",
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        const incrementButton = document.getElementById("incrementButton");
-        const counterValue = document.getElementById("counterValue");
-
-        // Real-time listener for counter updates
-        db.collection("counters")
-          .doc("clickCounter")
-          .onSnapshot((doc) => {
-            if (doc.exists) {
-              counterValue.textContent = doc.data().count;
-            }
-          });
-
-        incrementButton.addEventListener("click", async () => {
-          try {
-            const response = await fetch("/incrementCounter", {
-              method: "POST",
-            });
-            if (!response.ok) throw new Error("Failed to increment counter");
-            console.log("Counter incremented successfully");
-          } catch (error) {
-            console.error("Error:", error);
-          }
-        });
-      </script>
-
       <h1 class="display-4 fw-bold">Experiments reimagined</h1>
       <div class="col-lg-10 mx-auto">
         <p class="display-6">
@@ -251,7 +202,7 @@
             <div class="buttons-column app-download-buttons">
               <a href="https://apps.apple.com/app/your-app-link">
                 <img
-                  src="./assets/images/apple_app_store.svg"
+                  src="./assets/apple_app_store.svg"
                   alt="Download on the App Store"
                   class="app-store-button"
                 />
@@ -260,21 +211,20 @@
             <div class="buttons-column webapp-button-column">
               <a
                 class="btn btn-primary elevated btn-lg webapp-button d-flex align-items-center"
-                target="_blank"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeEm38DVS5yqWfCh5dMPH9C61tmldwgIrUjY2falImS2fHkMw/viewform?usp=sf_link"
+                href="./webapp/"
                 role="button"
                 style="border-radius: 0.8rem"
               >
                 <img
-                  src="./assets/images/logo_glow.png"
+                  src="./assets/logo_glow.png"
                   width="60"
                   alt="Logo"
                   style="margin-left: 0"
                 />
                 <div class="d-flex flex-column ms-2 text-start">
-                  <small class="text-muted" style="font-size: 0.9rem"
-                    >Visit the WetGenie</small
-                  >
+                  <small class="text-muted" style="font-size: 0.9rem">
+                    Visit the WetGenie
+                  </small>
                   <span>Web App</span>
                 </div>
               </a>
@@ -282,10 +232,10 @@
           </div>
         </div>
       </div>
-      <div class="overflow-hidden" style="max-height: 60vh">
+      <div class="overflow-hidden" style="max-height: 150vh">
         <div class="container px-5">
           <img
-            src="./assets/images/collage v1.webp"
+            src="./assets/pic_demo.png"
             class="img-fluid border rounded-3 shadow-lg mb-4"
             alt="Artistic laboratory elements"
             width="700"
@@ -399,7 +349,7 @@
     <!-- Additional Featured Section -->
     <div class="container pt- mt-5" id="featured-4">
       <img
-        src="./assets/images/logo_glow.png"
+        src="./assets/logo_glow.png"
         class="rounded-5"
         width="400"
         alt="WetGenie Logo"
@@ -529,6 +479,19 @@
       </div>
     </div>
 
+    <div class="overflow-hidden" style="max-height: 60vh">
+      <div class="container px-5">
+        <img
+          src="./assets/collage v1.webp"
+          class="img-fluid border rounded-3 shadow-lg mb-4"
+          alt="Artistic laboratory elements"
+          width="700"
+          height="500"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
     <div class="spacer"></div>
 
     <!-- Footer -->
@@ -543,11 +506,7 @@
           <!-- Center: Logo -->
           <div class="col-md-4 d-flex justify-content-center">
             <a href="/" class="text-decoration-none">
-              <img
-                src="./assets/images/ensynble_logo.png"
-                width="40%"
-                alt="Logo"
-              />
+              <img src="./assets/ensynble_logo.png" width="40%" alt="Logo" />
             </a>
           </div>
 
@@ -566,7 +525,7 @@
                   </li>
                   <li class="nav-item">
                     <a
-                      href="./pricing_page.html"
+                      href="./pricing.html"
                       class="nav-link px-0 text-body-secondary"
                       >Pricing</a
                     >
@@ -597,14 +556,14 @@
                 <ul class="nav flex-column text-start">
                   <li class="nav-item">
                     <a
-                      href="./privacy_policy.html"
+                      href="./privacy.html"
                       class="nav-link px-0 text-body-secondary"
                       >Privacy</a
                     >
                   </li>
                   <li class="nav-item">
                     <a
-                      href="./terms_service_agreement.html"
+                      href="./terms.html"
                       class="nav-link px-0 text-body-secondary"
                       >Terms</a
                     >
